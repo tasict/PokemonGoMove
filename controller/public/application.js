@@ -254,8 +254,8 @@ var App = function(lat, lng) {
 };
 
 $('document').ready(function() {
-  var START_LATITUDE = "37.3239";
-  var START_LONGTITUDE = "-121.9144";
+  var START_LATITUDE = "25.0404479";
+  var START_LONGTITUDE = "121.5308759";
   $("#latitude").val(START_LATITUDE);
   $("#longitude").val(START_LONGTITUDE);
   //$("#address").val("Enter address here...");
