@@ -43,8 +43,8 @@ if [ ! -z "$latitude" ] && [ ! -z "$longtitude" ]; then
 else
   # Cannot get a valid pair of GPS coordinates
   echo "Using default GPS coordinates: latitude=37.808341; longtitude=-122.409664"
-  latitude=37.808341 #default latitude
-  longtitude=-122.409664 #default longtitude
+  latitude=25.0420252 #default latitude
+  longtitude=121.5326559 #default longtitude
 fi
 
 # Replace the value of latitude and longtitude
