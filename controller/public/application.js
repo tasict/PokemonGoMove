@@ -152,7 +152,7 @@ var App = function(lat, lng) {
           clearInterval(this.currWalkingInstance);
           this.currWalkingInstanceMarker.setMap(null);
         }
-      }.bind(this), 1000); // 5 m/s
+      }.bind(this), 2000); // 10 m/s
     }.bind(this));
   };
 
