@@ -74,6 +74,7 @@ var App = function(lat, lng) {
 
     $("#latitude").val(this.currLocation.lat);
     $("#longitude").val(this.currLocation.lng);
+    $("#location").val(this.currLocation.lat + ", " + this.currLocation.lng);
 
     updateMap.bind(this)(this.currLocation);
   };
@@ -196,6 +197,16 @@ var App = function(lat, lng) {
     $("#location-button").click(function(){
       this.setNewLocation({lat:parseFloat($('#latitude').val()), lng:parseFloat($('#longitude').val())});
     }.bind(this));
+
+    $("#position-button").click(function(){
+      var pos = $('#location').val().split(",");
+
+      if(pos.length == 2){
+        this.setNewLocation({lat:parseFloat(pos[0]), lng:parseFloat(pos[1])});
+      }
+      
+    }.bind(this));
+
   };
 
   this.listenToKeyPress = function() {
@@ -253,8 +264,8 @@ $('document').ready(function() {
   var START_LONGTITUDE = "121.5308759";
   $("#latitude").val(START_LATITUDE);
   $("#longitude").val(START_LONGTITUDE);
+  $("#location").val(START_LATITUDE + ", " + START_LONGTITUDE);
   //$("#address").val("Enter address here...");
   var app = new App(parseFloat(START_LATITUDE), parseFloat(START_LONGTITUDE));
-  app.setNewLocation({lat:parseFloat(START_LATITUDE), lng:parseFloat(START_LONGTITUDE)});
 })
 
