@@ -14,6 +14,10 @@ var App = function(lat, lng) {
     this.listenToLocation();
     this.listenToKeyPress();
 
+    $('#walking-arround').click(function(){
+      this.walkingAround();
+    }.bind(this));    
+
     $('#stop-walking').click(function(){
       this.stopWalking();
     }.bind(this));    
@@ -155,6 +159,53 @@ var App = function(lat, lng) {
         }
       }.bind(this), 2000); // 10 m/s
     }.bind(this));
+  };
+
+  this.walkingAround = function(origin) {
+    
+    // Latitude: 1 deg = 110.574 km
+    // Longitude: 1 deg = 111.320*cos(latitude) km
+
+    // reset if another destination is chosen
+    clearInterval(this.currWalkingInstance);
+
+    // reset if another destination is chosen
+    if (this.currWalkingInstanceMarker) {
+      this.currWalkingInstanceMarker.setMap(null);
+    }
+
+    // set marker
+    this.currWalkingInstanceMarker = new google.maps.Marker({
+      position: origin,
+      map: this.map,
+      title: 'origin'
+    });
+
+
+    var direction = 1;
+
+    var latPerStep = Math.random() / 10000;
+    var lngPerStep = Math.random() / 10000;
+
+    this.currWalkingInstance = setInterval(function() {
+      this.currLocation = {
+        lat: this.currLocation.lat + (latPerStep * direction),
+        lng: this.currLocation.lng + (lngPerStep * direction)
+      };
+
+      this.setNewLocation(this.currLocation);
+
+      if(direction != 1){
+          latPerStep = (Math.random() / 10000) ;
+          lngPerStep = (Math.random() / 10000) ;
+      }
+
+      direction = direction * -1;
+
+    }.bind(this), 2000); // 10 m/s
+
+
+
   };
 
   this.stopWalking = function() {
