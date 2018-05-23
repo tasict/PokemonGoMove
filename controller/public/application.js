@@ -43,7 +43,20 @@ var App = function(lat, lng) {
       url : "https://maps.googleapis.com/maps/api/geocode/json?address="+address.replace(/ /g, "+"),
       dataType : "JSON",
       success: function(data){
-        callback(data.results[0].geometry.location);
+
+        if(data.status == "OK"){
+          callback(data.results[0].geometry.location);
+        }
+        else{
+
+          var pos = address.split(",");
+
+          if(pos.length == 2){
+            this.setNewLocation({lat:parseFloat(pos[0]), lng:parseFloat(pos[1])});
+          }
+
+        }
+
       }
     });
   }
