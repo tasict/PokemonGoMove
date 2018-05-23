@@ -44,7 +44,7 @@ var App = function(lat, lng) {
       dataType : "JSON",
       success: function(data){
 
-        if(data.status == "OK"){
+        if(data.results.length > 0 && data.results[0].geometry != null){
           callback(data.results[0].geometry.location);
         }
         else{
@@ -52,7 +52,7 @@ var App = function(lat, lng) {
           var pos = address.split(",");
 
           if(pos.length == 2){
-            this.setNewLocation({lat:parseFloat(pos[0]), lng:parseFloat(pos[1])});
+            callback({lat:parseFloat(pos[0]), lng:parseFloat(pos[1]), formatted_address:address});
           }
 
         }
@@ -67,7 +67,9 @@ var App = function(lat, lng) {
       url : "https://maps.googleapis.com/maps/api/geocode/json?latlng="+loc+"&sensor=true",
       dataType : "JSON",
       success: function(data){
-        callback(data.results[0].formatted_address);
+        if(data.results.length > 0 && data.results[0].formatted_address != null){
+          callback(data.results[0].formatted_address);
+        }  
       }
     });
   }
